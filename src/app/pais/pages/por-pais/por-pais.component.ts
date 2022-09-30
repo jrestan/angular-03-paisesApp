@@ -13,10 +13,30 @@ export class PorPaisComponent implements OnInit {
   termino: string = "";
   hayError: boolean = false;
   paises: Country[] = [];
-  
-  buscar(){
+
+
+  /*
+  //intento tarea video110
+  get hayError(){
+    return this.paisService.hayError;
+  }
+  */
+
+  sugerencias(termino: string)
+  {
     this.hayError = false;
+
+    //TODO: crear sugerencias
+    console.log(termino)
+  }
+  
+  buscar(termino: string)
+  {
+    this.hayError = false;
+    this.termino = termino
+
     console.log(this.termino);
+
     this.paisService.buscarPais(this.termino)
     .subscribe((paises)=>{
       console.log(paises)
@@ -27,6 +47,11 @@ export class PorPaisComponent implements OnInit {
       this.hayError = true;
       this.paises = [];
     });
+    
+    /*
+    //intento tarea video110
+    this.paisService._buscarPais(this.termino);
+    */
   }
 
   constructor(private paisService: PaisService) { }
