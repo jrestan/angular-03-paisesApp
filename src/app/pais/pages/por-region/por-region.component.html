@@ -1,3 +1,65 @@
 <!-- <p>por-region works!</p> -->
-<h2>Por Region</h2>
+<h2>Por Region <small>{{regionActiva | titlecase}}</small> </h2>
 <hr>
+
+<h5>Seleccione la región</h5>
+
+<div class="row">
+    <div class="col">
+
+       <!-- A mi me funciono con esto
+            [class.btn-primary]="region===regionActiva"
+            [class.btn-outline-primary]="!(region===regionActiva)" -->
+
+       <!-- Con esto funciono exactamente igual
+            [ngClass]="{
+                'btn-primary': region===regionActiva,
+                'btn-outline-primary': region!==regionActiva
+            }" -->
+       <!-- class="btn btn-outline-primary"  -->
+       <!-- Esta es la mejor forma -->
+       <!-- [class]="(region===regionActiva)?'btn btn-primary':'btn btn-outline-primary'" -->
+        <button 
+            *ngFor="let region of regiones"
+            [class]="getClassCSS(region)"
+            (click)="activarRegion(region)">
+            {{region | titlecase}}
+        </button>
+    </div>
+</div>
+
+<hr>
+
+<div *ngIf="this.inibusqueda; else divPais" class="alert alert-info">
+    Espere por favor...
+</div>
+
+<ng-template #divPais>
+<div *ngIf="paises.length>0" class="row">
+    <div class="col">
+        
+        <app-pais-tabla [paises]="paises"></app-pais-tabla>
+        
+        <!-- <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Bandera</th>
+                    <th>Nombre</th>
+                    <th>Población</th>
+                    <th></th>
+                </tr>                
+            </thead>
+            <tbody>
+                <tr *ngFor="let pais of paises; let i=index">
+                    <td>{{i+1}}</td>
+                    <td><img [src]="pais.flag" [alt]="pais.name" class="small-flag"> <img src="" alt=""></td>
+                    <td>{{pais.name}}</td>
+                    <td>{{pais.population | number}}</td>
+                    <td><a [routerLink]="['/pais', pais.alpha2Code]">Ver...</a></td>
+                </tr>
+            </tbody>
+        </table> -->
+    </div>
+</div>
+</ng-template>
